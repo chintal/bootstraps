@@ -26,8 +26,8 @@ Setting up a project with `CMake` scripts in place (New Instance of existing pro
   * Acquire the project by `svn` or so.
 
   * You should already have a `toolchain` file for the desired toolchain 
-  for your system. In not, a sample should be available in the project tree.
-  Adapt it to match your system.
+  for your system. In not, samples should be available in `resources/toolchains`.
+  repository.  Adapt it to match your system.
 
   * Navigate to the build folder.
     
@@ -65,7 +65,7 @@ environment we hope to be able to use.
     |   `-- [build files]
     `-- src
 	|-- CMakeLists.txt
-	|-- toolchain-<name>.cmake	(Sample)
+	|-- default_install.cmake  (Optional, for 'make install' support)
 	`-- [source files]
     ~~~
     
