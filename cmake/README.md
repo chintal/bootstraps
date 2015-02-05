@@ -44,12 +44,14 @@ Setting up a project with `CMake` scripts in place (New Instance of existing pro
 Setting up CMake build scripts (Project Developers):
 ----------------------------------------------------
 
-`CMake` is an ugly build system for C/C++. The only reason we're using it 
-is because it's the natively supported buildsystem for both `KDevelop` and 
-`CLion`, the most promising developing environments freely available. CLion 
-is probably a year or two away, and hopefully they will have a community 
-edition as well, similarly to `pycharm`. For the moment, KDevelop is the 
-environment we hope to be able to use.
+`CMake` is a supposedly popular, though ugly-for-simple-projects build system for 
+C/C++. The advantage to using `cmake` comes from the apprant better support it has
+from development tools, specifically kdevelop, possibly visual studio, and in the 
+future clion. (CLion doesn't seem to work for me with custom toolchains, making it 
+useless in this context). The primary advantage that could possibly stem from the 
+use of `cmake`, besides being able to use `kdevelop`, is that properly configured
+CMakeList files should allow for relatively easy reuse of code across projects and
+platforms. 
 
   * Install cmake :
 	
