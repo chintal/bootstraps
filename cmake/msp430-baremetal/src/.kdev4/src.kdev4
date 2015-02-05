@@ -1,0 +1,19 @@
+[Buildset]
+BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+
+[CMake]
+Build Directory Count=1
+Current Build Directory Index=0
+ProjectRootRelative=./
+
+[CMake][CMake Build Directory 0]
+Build Directory Path=file:///media/ldata/code/workspaces/kdevelop/msp430/example/build
+Build Type=RelWithDebInfo
+CMake Binary=file:///usr/bin/cmake
+Environment Profile=msp430
+Extra Arguments=-DCMAKE_TOOLCHAIN_FILE='/home/chintal/code/toolchains/toolchain-msp430.cmake
+Install Directory=file:///usr/local
+
+[MakeBuilder]
+Default Target=all
+Number Of Jobs=1

@@ -1,0 +1,9 @@
+
+
+SET(DEFAULT_DEVICE "msp430f5529"
+	CACHE STRING "Default Target Device for make install")
+SET(DEFAULT_FIRMWARE "firmware"
+	CACHE STRING "Default Firmware for make install")
+
+EXECUTE_PROCESS(COMMAND make ${DEFAULT_FIRMWARE}-${DEFAULT_DEVICE}-upload
+		WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
