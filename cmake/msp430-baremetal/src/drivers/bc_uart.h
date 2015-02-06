@@ -1,6 +1,6 @@
 
 #include <msp430.h>
-#include <stdlib.h>
+#include <stdint.h>
 
 void vBackChannelUARTSetup(void);
 void vBackChannelTXchar(uint8_t byte);
