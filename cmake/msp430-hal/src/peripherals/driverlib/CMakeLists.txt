@@ -1,0 +1,4 @@
+
+
+ADD_SUBDIRECTORY(MSP430F5xx_6xx)
+
