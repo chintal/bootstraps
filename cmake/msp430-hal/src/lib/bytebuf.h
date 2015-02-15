@@ -54,6 +54,7 @@
 
 #define BYTEBUF_LOCK_OPEN       0
 #define BYTEBUF_TOKEN_PRINT     1
+#define BYTEBUF_TOKEN_SCHAR     2
 
 /**@}*/ 
 

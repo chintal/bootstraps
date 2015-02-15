@@ -10,10 +10,11 @@ lfsr16_t prbs;
 int main(void)
 {
     volatile uint8_t i;
-    gpio_conf_output(1,_BV(0));
-    gpio_conf_output(4,_BV(7));
-    gpio_set_output_low(4,_BV(7));
-    gpio_set_output_high(1,_BV(0));
+    
+    gpio_conf_output(BOARD_GREEN_LED_PORT,BOARD_GREEN_LED_PIN);
+    gpio_conf_output(BOARD_RED_LED_PORT,BOARD_RED_LED_PIN);
+    gpio_set_output_high(BOARD_RED_LED_PORT,BOARD_RED_LED_PIN);
+    gpio_set_output_low(BOARD_GREEN_LED_PORT,BOARD_GREEN_LED_PIN);
     
     watchdog_hold();
     power_set_full();
@@ -30,13 +31,13 @@ int main(void)
     while (!rval){
         rval = bc_unhandledrxb();
     }
-    res = bc_printchar(0x01, 0x02, 0x01);
+    res = bc_printchar(0x01, BYTEBUF_TOKEN_SCHAR, 0x01);
     
-    gpio_set_output_high(4,_BV(7));
-    gpio_set_output_low(1,_BV(0));
+    gpio_set_output_high(BOARD_RED_LED_PORT,BOARD_RED_LED_PIN);
+    gpio_set_output_low(BOARD_GREEN_LED_PORT,BOARD_GREEN_LED_PIN);
     
     while(1){
-        res = bc_printchar(i, 0x02, 0x01);
+        res = bc_printchar(i, BYTEBUF_TOKEN_SCHAR, 0x01);
         if(res){   
             i=lfsr_cGetNextByte(&prbs);
         }

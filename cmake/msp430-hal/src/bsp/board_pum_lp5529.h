@@ -39,7 +39,30 @@
 
     #define BOARD_HAS_BCIFACE         1
     #define BOARD_BCIFACE_PROVIDER    UART1
-
+    
 /**@}*/ 
+
+/**
+ * @name LED Configuration
+ * 
+ * For use with standard GPIO functions. Special functions
+ * to deal with LEDs can be written, but probably more work
+ * than is justified.
+ */
+/**@{*/ 
+
+    #define BOARD_HAS_RED_LED         1
+    #define BOARD_RED_LED_PORT        1
+    #define BOARD_RED_LED_PIN         _BV(0)
+    #define BOARD_RED_LED_POLARITY    1
+    
+    #define BOARD_HAS_GREEN_LED       1
+    #define BOARD_GREEN_LED_PORT      4
+    #define BOARD_GREEN_LED_PIN       _BV(7)
+    #define BOARD_GREEN_LED_POLARITY  1
+    
+    
+/**@}*/ 
+
 
 #endif
