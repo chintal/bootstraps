@@ -79,7 +79,7 @@ uint8_t bytebuf_cPushReqLock( bytebuf * bytebufp, uint8_t length, uint8_t token 
 {
     if ( bytebufp -> _lock == BYTEBUF_LOCK_OPEN )
     {
-        if ( cbytebuf_getfree( bytebufp ) >= length )
+        if ( bytebuf_cGetFree( bytebufp ) >= length )
         {
             bytebufp -> _lock = token;
             bytebufp -> _locklen = length;
@@ -94,7 +94,7 @@ uint8_t bytebuf_cPushReqBlindLock( bytebuf * bytebufp, uint8_t token )
     uint8_t avail;
     if ( bytebufp -> _lock == BYTEBUF_LOCK_OPEN )
     {
-        avail = cbytebuf_getfree( bytebufp );
+        avail = bytebuf_cGetFree( bytebufp );
         if ( avail > 0 )
         {
             bytebufp -> _lock = token;
@@ -123,12 +123,14 @@ uint8_t bytebuf_cPush( bytebuf * bytebufp, uint8_t byte, uint8_t token )
     {
         *( bytebufp -> _inp ) = byte;
         bytebuf_vIncInp( bytebufp );
-        bytebufp -> _locklen--;
-        bytebufp -> _population++;
-        if ( !(bytebufp -> _locklen) )
-        {
-            bytebufp -> _lock = BYTEBUF_LOCK_OPEN;
+        if (token != BYTEBUF_LOCK_OPEN){
+            bytebufp -> _locklen--;
+            if ( !(bytebufp -> _locklen) )
+            {
+                bytebufp -> _lock = BYTEBUF_LOCK_OPEN;
+            }
         }
+        bytebufp -> _population++;
         return 1;
     }
     return 0;

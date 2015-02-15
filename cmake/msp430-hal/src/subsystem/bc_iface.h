@@ -51,36 +51,6 @@
         }    
         
         /**
-         * @brief Send a single character over the backchannel interface
-         * @param byte The character to be sent
-         * 
-         * This function uses the simplest possible method
-         * to send a single byte of data. If possible, it 
-         * should not use buffers, interrupts, etc.
-         * 
-         * In a general application, this function would only
-         * be used in special circumstances.
-         */
-        static inline void bc_sendchar(uint8_t byte){
-            uart1_sendchar(byte);   
-        }
-
-        /**
-          * @brief Recieve a single character from UART 1.
-          * 
-          * This function uses the simplest possible method
-          * to recieve a single byte of data. If possible, it 
-          * should not use buffers, interrupts, etc.
-          * 
-          * In a general application, this function would only
-          * be used in special circumstances.
-          * @return Character recieved
-          */
-        static inline uint8_t bc_recvchar(void){
-            return uart1_recvchar();
-        }
-        
-        /**
           * @brief Print to backchannel interface.
           * 
           * Print to the backchannel interface via a printf-like 
@@ -98,6 +68,31 @@
             rval = uart1_vprintf_buf(format, &args);
             va_end(args);
             return rval;
+        }
+        
+        /**
+          * @brief Print a single character to the backchannel interface
+          * 
+          * Send a single character via the backchannel interface
+          * 
+          * @param byte byte to be sent.
+          * @param token token against which buffer lock should be obtained 
+          *              and/or used.
+          * @param handlelock If 1, the function will deal with interacting
+          *              with the underlying locking mechanism. If not, it
+          *              assumes you already hold the necessary locks.
+          * @warning If the locking is left to this function, it will give up
+          *          immediately if the lock is held elsewhere. You should 
+          *          check the return value of the function if the send is 
+          *          critical.
+          * @return 0 for error, 1 for success.
+          */
+        static inline uint8_t bc_printchar(uint8_t byte, uint8_t token, uint8_t handlelock){
+            return uart1_sendchar_buf(byte, token, handlelock);
+        }
+        
+        static inline uint8_t bc_unhandledrxb(void){
+            return uart1_population_rxbuf();
         }
 
     #else 

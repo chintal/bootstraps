@@ -44,9 +44,10 @@
     #define BIT_UART1_RX_IF                  _BV(0)
 
     #define UART1_TXBUF                      UCA1TXBUF
-    #define UART1_RXBUF                      UCA1TXBUF
+    #define UART1_RXBUF                      UCA1RXBUF
     
     extern bytebuf uart1_txbuf;
+    extern bytebuf uart1_rxbuf;
     extern uint8_t uart1_triggered;
     
     static inline void uart1_sendchar(uint8_t byte){
@@ -55,10 +56,22 @@
 
     static inline void uart1_send_trigger(void){
         if (!uart1_triggered){
-            REGISTER_UART1_INTERRUPT_FLAG |= BIT_UART1_TX_IE;
             uart1_triggered = 1;
             REGISTER_UART1_INTERRUPT_ENABLE |= BIT_UART1_TX_IE;
         }
+    }
+    
+    static inline uint8_t uart1_sendchar_buf(uint8_t byte, uint8_t token, uint8_t handlelock){
+        uint8_t stat=1;
+        if (handlelock){
+            stat = bytebuf_cPushReqLock(&uart1_txbuf, 1, token);
+        }
+        if (stat){
+            stat = bytebuf_cPush(&uart1_txbuf, byte, token);
+            uart1_send_trigger();
+            return stat;
+        }
+        return 0;
     }
     
     static inline uint8_t uart1_recvchar(void){

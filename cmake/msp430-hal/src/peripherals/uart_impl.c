@@ -28,14 +28,17 @@
 
 #include "driverlib/MSP430F5xx_6xx/usci_a_uart.h"
 
-uint8_t uart1_txbuffer[PUM_UART1_TXBUF_LEN+10];
+uint8_t uart1_txbuffer[PUM_UART1_TXBUF_LEN+5];
+uint8_t uart1_rxbuffer[PUM_UART1_RXBUF_LEN+5];
 bytebuf uart1_txbuf;
+bytebuf uart1_rxbuf;
 uint8_t uart1_triggered = 0;
 
 static void _uart1_buffer_init(void);
 
 static void _uart1_buffer_init(void){
     bytebuf_vInit(uart1_txbuffer, PUM_UART1_TXBUF_LEN, &uart1_txbuf);
+    bytebuf_vInit(uart1_rxbuffer, PUM_UART1_RXBUF_LEN, &uart1_rxbuf);
 }
 
 void uart1_init(void){
@@ -56,9 +59,9 @@ void uart1_init(void){
     param.overSampling =        USCI_A_UART_LOW_FREQUENCY_BAUDRATE_GENERATION;
     
     USCI_A_UART_init(UART1_BASE, &param);
-    USCI_A_UART_enable(UART1_BASE);   
-    USCI_A_UART_clearInterruptFlag(UART1_BASE, USCI_A_UART_TRANSMIT_INTERRUPT);
-    USCI_A_UART_enableInterrupt(UART1_BASE, USCI_A_UART_TRANSMIT_INTERRUPT);
+    USCI_A_UART_enable(UART1_BASE);  
+    USCI_A_UART_clearInterruptFlag(UART1_BASE, USCI_A_UART_RECEIVE_INTERRUPT);
+    USCI_A_UART_enableInterrupt(UART1_BASE, USCI_A_UART_RECEIVE_INTERRUPT);
 }
 
 uint8_t uart1_vprintf_buf(const char *format, va_list * args){
@@ -83,9 +86,22 @@ uint8_t uart1_vprintf_buf(const char *format, va_list * args){
         }
 }
 
+uint8_t uart1_population_rxbuf(void){
+        return bytebuf_cPopulation(&uart1_rxbuf);
+}
+
 ATTR_INTERRUPT_VECTOR_UART1
 void uart1_irqhandler(void){
-    if (REGISTER_UART1_INTERRUPT_FLAG & BIT_UART1_TX_IF){
+    uint8_t flagreg = REGISTER_UART1_INTERRUPT_FLAG;
+    if ( flagreg & BIT_UART1_RX_IF ){
+        if (bytebuf_cPushReqLock(&uart1_rxbuf, 0x01, 0x03)){
+            bytebuf_cPush(&uart1_rxbuf, UART1_RXBUF, 0x03);
+        }
+        else{
+            UART1_RXBUF;
+        }
+    }
+    else if ( flagreg & BIT_UART1_TX_IF ){
         if (uart1_txbuf._population == 1){
             REGISTER_UART1_INTERRUPT_ENABLE &= ~BIT_UART1_TX_IE;
             uart1_triggered = 0;

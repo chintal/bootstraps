@@ -89,6 +89,7 @@
     #define PUM_UART1_TYPE          USCI_A
     #define PUM_UART1_MODNUM        1
     #define PUM_UART1_TXBUF_LEN     200
+    #define PUM_UART1_RXBUF_LEN     20
     /**@}*/ 
     
 /**@}*/ 

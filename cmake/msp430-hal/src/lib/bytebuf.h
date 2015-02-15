@@ -168,7 +168,7 @@ uint8_t bytebuf_cPopByte(bytebuf * bytebufp);
   * @param *bytebufp Pointer to the bytebuf structure.
   * @return The number of bytes left in the buffer to be read.
   */
-static inline uint8_t cbytebuf_population(bytebuf * bytebufp){
+static inline uint8_t bytebuf_cPopulation(bytebuf * bytebufp){
     return (bytebufp->_population);
 }
 
@@ -179,6 +179,6 @@ static inline uint8_t cbytebuf_population(bytebuf * bytebufp){
   * @param *bytebufp Pointer to the bytebuf structure.
   * @return The number of empty bytes left in the buffer.
   */
-static inline uint8_t cbytebuf_getfree(bytebuf * bytebufp){
+static inline uint8_t bytebuf_cGetFree(bytebuf * bytebufp){
     return (bytebufp->_size - bytebufp->_population);
 }
