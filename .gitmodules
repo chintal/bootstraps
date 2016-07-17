@@ -10,3 +10,6 @@
 [submodule "cmake/components/ebs-lib-bytebuf"]
 	path = cmake/components/ebs-lib-bytebuf
 	url = https://github.com/chintal/ebs-lib-bytebuf.git
+[submodule "cmake/toolchains"]
+	path = cmake/toolchains
+	url = https://github.com/chintal/toolchains.git
