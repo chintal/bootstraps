@@ -1,0 +1,12 @@
+[submodule "cmake/components/msp430-driverlib"]
+	path = cmake/components/msp430-driverlib
+	url = https://github.com/chintal/msp430-driverlib.git
+[submodule "cmake/components/ebs-lib-prbs"]
+	path = cmake/components/ebs-lib-prbs
+	url = https://github.com/chintal/ebs-lib-prbs.git
+[submodule "cmake/components/ebs-lib-printf"]
+	path = cmake/components/ebs-lib-printf
+	url = https://github.com/chintal/ebs-lib-printf.git
+[submodule "cmake/components/ebs-lib-bytebuf"]
+	path = cmake/components/ebs-lib-bytebuf
+	url = https://github.com/chintal/ebs-lib-bytebuf.git

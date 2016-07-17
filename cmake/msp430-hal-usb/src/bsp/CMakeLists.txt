@@ -1,4 +1,4 @@
 
 
-ADD_MSP430_LIBRARY(board-funcs STATIC "" board.c)
+ADD_PLATFORM_LIBRARY(board-funcs STATIC "" board.c)
 

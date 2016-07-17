@@ -1,2 +1,2 @@
 
-ADD_MSP430_LIBRARY(usb-config STATIC "driverlib usb-api" descriptors.c)
+ADD_PLATFORM_LIBRARY(usb-config STATIC "driverlib usb-api" descriptors.c)

@@ -12,7 +12,7 @@ ENDFOREACH(device ${SUPPORTED_DEVICES})
 SET(SUPPORTED_DEVICES ${RESULTV})
 
 IF(SUPPORTED_DEVICES)
-ADD_MSP430_LIBRARY(driverlib STATIC "" 	adc10_a.c 
+ADD_PLATFORM_LIBRARY(driverlib STATIC "" 	adc10_a.c 
 					adc12_a.c
 					aes.c
 					battbak.c

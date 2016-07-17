@@ -38,7 +38,7 @@ Setting up a project with `CMake` scripts in place (New Instance of existing pro
   * Run `cmake` to generate the `makefile`. 
 
     ~~~
-    $ cmake --DCMAKE_TOOLCHAIN_FILE=<path_to_toolchain_file> ../src
+    $ cmake -DCMAKE_TOOLCHAIN_FILE=<path_to_toolchain_file> ../src
     ~~~
 
 Setting up CMake build scripts (Project Developers):
@@ -66,9 +66,9 @@ platforms.
     |-- build
     |   `-- [build files]
     `-- src
-	|-- CMakeLists.txt
-	|-- default_install.cmake  (Optional, for 'make install' support)
-	`-- [source files]
+    |   |-- CMakeLists.txt
+    |   |-- default_install.cmake  (Optional, for 'make install' support)
+    |   `-- [source files]
     ~~~
     
   * Every subfolder of SRC includes a `CMakeLists.txt` file declaring
@@ -119,7 +119,7 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
 # For special libraries, the toolchain/Platform files should contain 
 # wrappers that inject the needed extra flags.
 
-ADD_MSP430_LIBRARY(<library_name> STATIC "<library_dependencies>" <source_files>
+ADD_PLATFORM_LIBRARY(<library_name> STATIC "<library_dependencies>" <source_files>
 
 # Where:
 # <library_dependencies> is a space separated list of dependencies. 
@@ -151,7 +151,7 @@ LIST(APPEND deps "<dependencies>")
 # For specialized executables, the toolchain / Platform file should contain
 # a wrapper that adds the extra targets and fills in the extra flags.
 
-ADD_MSP430_EXECUTABLE(<output_binary> ${deps} ${application_SRCS})
+ADD_PLATFORM_EXECUTABLE(<output_binary> ${deps} ${application_SRCS})
 ~~~
 
 **Doc folder (`doxygen`) `CMakeLists.txt` file:**
@@ -215,7 +215,7 @@ adapted to each machine. Conversely, whenever a toolchain is installed on a
 machine, the corresponding `toolchain` file can be created in a specific 
 location, to be used by all projects using that toolchain. 
 
-For reference, the `toolchain` file for `msp430-gcc` toolchain compatible with 
+For reference, a `toolchain` file for `msp430-gcc` toolchain compatible with 
 the tools installed by standard `ubuntu` packages is listed here for reference. 
 `(\)` in the file represent line breaks that must not exist in the live file.
 
@@ -317,7 +317,7 @@ endmacro(LIST_REPLACE)
 # disassembly listings, size outputs, map files, and to upload to device. 
 # Also adds all these extra files created including map files to the clean
 # list.
-FUNCTION(add_msp430_executable EXECUTABLE_NAME DEPENDENCIES)
+FUNCTION(add_platform_executable EXECUTABLE_NAME DEPENDENCIES)
 	SET(DEVICES ${SUPPORTED_DEVICES})
 	
 	SET(EXE_NAME ${EXECUTABLE_NAME})
@@ -385,11 +385,11 @@ FUNCTION(add_msp430_executable EXECUTABLE_NAME DEPENDENCIES)
 		ADDITIONAL_MAKE_CLEAN_FILES "${clean_files}"
 	)
 
-ENDFUNCTION(add_msp430_executable)
+ENDFUNCTION(add_platform_executable)
 
 # Wrapper around ADD_LIBRARY, which adds the necessary -mmcu flags and
 # sets up builds for multiple devices. 
-FUNCTION(add_msp430_library LIBRARY_NAME LIBRARY_TYPE DEPENDENCIES)
+FUNCTION(add_platform_library LIBRARY_NAME LIBRARY_TYPE DEPENDENCIES)
 	SET(DEVICES ${SUPPORTED_DEVICES})
 	
 	SET(LIB_NAME ${LIBRARY_NAME})
@@ -417,7 +417,7 @@ FUNCTION(add_msp430_library LIBRARY_NAME LIBRARY_TYPE DEPENDENCIES)
 		ENDFOREACH(dep)
 		TARGET_LINK_LIBRARIES(${LIB_FILE} ${DDEPS})
 	ENDFOREACH(device)
-ENDFUNCTION(add_msp430_library)
+ENDFUNCTION(add_platform_library)
 ~~~
 
 Useful References

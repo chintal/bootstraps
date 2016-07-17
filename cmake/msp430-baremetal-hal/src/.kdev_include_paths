@@ -1,0 +1,8 @@
+bsp
+hal-uc
+peripherals
+application
+subsystem
+lib
+/opt/ti/gcc/include
+/home/chintal/code/toolchains/packages/include
