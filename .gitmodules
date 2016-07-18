@@ -13,3 +13,6 @@
 [submodule "cmake/toolchains"]
 	path = cmake/toolchains
 	url = https://github.com/chintal/toolchains.git
+[submodule "cmake/components/ebs-lib-ucdm"]
+	path = cmake/components/ebs-lib-ucdm
+	url = https://github.com/chintal/ebs-lib-ucdm.git
