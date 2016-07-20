@@ -85,7 +85,11 @@
           * @return 0 for error, 1 for success.
           */
         static inline uint8_t bc_putc(uint8_t byte, uint8_t token, uint8_t handlelock){
-            return uart_putc_buf(BOARD_BCIFACE_INTFNUM, byte, token, handlelock);
+            return uart_putc(BOARD_BCIFACE_INTFNUM, byte, token, handlelock);
+        }
+        
+        static inline uint8_t bc_write(void *buffer, uint8_t len, uint8_t token){
+            return uart_write(BOARD_BCIFACE_INTFNUM, buffer, len, token);
         }
         
         /**
@@ -113,7 +117,11 @@
         }
         
         static inline uint8_t bc_getc(void){            
-            return uart_getc_buf(BOARD_BCIFACE_INTFNUM);
+            return uart_getc(BOARD_BCIFACE_INTFNUM);
+        }
+        
+        static inline uint8_t bc_read(void *buffer, uint8_t len){
+            return uart_read(BOARD_BCIFACE_INTFNUM, buffer, len);
         }
         
         static inline void bc_discard_rxb(){

@@ -102,8 +102,9 @@ static inline uint8_t uart_reqlock(uint8_t intfnum, uint8_t len, uint8_t token);
  * 
  * @see uart_send_trigger()
  */
-static inline uint8_t uart_putc_buf(uint8_t intfnum, uint8_t byte, uint8_t token, uint8_t handlelock);
+static inline uint8_t uart_putc(uint8_t intfnum, uint8_t byte, uint8_t token, uint8_t handlelock);
 
+static inline uint8_t uart_write(uint8_t intfnum, void *buffer, uint8_t len, uint8_t token);
 
 /**
  * @brief TX buffer prep function - printf
@@ -146,7 +147,9 @@ static inline uint8_t uart_population_rxb(uint8_t intfnum);
 
 static inline void uart_discard_rxb(uint8_t intfnum);
 
-static inline uint8_t uart_getc_buf(uint8_t intfnum);
+static inline uint8_t uart_getc(uint8_t intfnum);
+
+static inline uint8_t uart_read(uint8_t intfnum, void *buffer, uint8_t len);
 
 void _uart0_irqhandler(void);
 void _uart1_irqhandler(void);
@@ -173,7 +176,7 @@ void _uart1_irqhandler(void);
  * the peripheral initialization may need to be changed to not enable 
  * interrupts.
  */
-static inline void uart_putc(uint8_t intfnum, uint8_t byte);
+static inline void uart_putc_bare(uint8_t intfnum, uint8_t byte);
 
 /**
  * @brief Recieve a single character from the specified UART interface
@@ -191,7 +194,7 @@ static inline void uart_putc(uint8_t intfnum, uint8_t byte);
  * 
  * @return Character recieved
  */
-static inline uint8_t uart_getc(uint8_t intfnum);
+static inline uint8_t uart_getc_bare(uint8_t intfnum);
 /**@}*/ 
 
 #endif

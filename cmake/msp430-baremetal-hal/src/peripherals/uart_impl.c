@@ -28,7 +28,7 @@
 #if uC_UART0_ENABLED
 
     // BAUD RATE GENERATION
-    #define _UART0_DIV_INT              (uC_SMCLK_FRQ_HZ / uC_UART1_BAUD)
+    #define _UART0_DIV_INT              (uC_SMCLK_FRQ_HZ / uC_UART0_BAUD)
     
     #define _UART0_DIV_FRAC_NUMERATOR   (uC_SMCLK_FRQ_HZ - (_UART0_DIV_INT * uC_UART0_BAUD))
     #define _UART0_DIV_FRAC_NUM_X_8     (_UART0_DIV_FRAC_NUMERATOR * 8)
@@ -40,13 +40,13 @@
         #define _UART0_BRS_VAL          (_UART0_DIV_FRAC_X_8 + 1)
     #endif
     
-    uint8_t uart0_txbuffer[uC_UART1_TXBUF_LEN];
-    uint8_t uart0_rxbuffer[uC_UART1_RXBUF_LEN];
+    uint8_t uart0_txbuffer[uC_UART0_TXBUF_LEN + 1];
+    uint8_t uart0_rxbuffer[uC_UART0_RXBUF_LEN + 1];
     bytebuf uart0_txbuf;
     bytebuf uart0_rxbuf;
     
     static const _UART_HWIF_t _uart0_hwif = {
-        uC_UART1_TYPE, uC_UART1_BASE, uC_UART1_VECTOR
+        uC_UART0_TYPE, uC_UART0_BASE, uC_UART0_VECTOR
     };
     
     UART_STATE_t uart0_state = {0};
@@ -117,8 +117,8 @@
         #define _UART1_BRS_VAL          (_UART1_DIV_FRAC_X_8 + 1)
     #endif
         
-    uint8_t uart1_txbuffer[uC_UART1_TXBUF_LEN];
-    uint8_t uart1_rxbuffer[uC_UART1_RXBUF_LEN];
+    uint8_t uart1_txbuffer[uC_UART1_TXBUF_LEN + 1];
+    uint8_t uart1_rxbuffer[uC_UART1_RXBUF_LEN + 1];
     bytebuf uart1_txbuf;
     bytebuf uart1_rxbuf;
     

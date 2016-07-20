@@ -19,7 +19,8 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>. 
 */
 
-#include "hal_uc_uart.h"
+#include "uc_pum.h"
+#include "hal_uc.h"
 #include "uart_impl.h"
 
 volatile uint8_t __uart_handler_inclusion;
@@ -52,8 +53,8 @@ volatile uint8_t __uart_handler_inclusion;
     static inline void uart0_handler_rx(void){
         uint8_t rval; 
         rval = HWREG8(uC_UART0_BASE + OFS_UCAxRXBUF);
-        if (bytebuf_cPushReqLock(&uart0_rxbuf, 0x01, 0x03)){
-            bytebuf_cPush(&uart0_rxbuf, rval, 0x03);
+        if (bytebuf_cGetFree(&uart1_rxbuf)){
+            bytebuf_cPush(&uart1_rxbuf, rval, 0x00);
         }
     }
     
@@ -107,8 +108,8 @@ volatile uint8_t __uart_handler_inclusion;
     static inline void uart1_handler_rx(void){
         uint8_t rval; 
         rval = HWREG8(uC_UART1_BASE + OFS_UCAxRXBUF);
-        if (bytebuf_cPushReqLock(&uart1_rxbuf, 0x01, 0x03)){
-            bytebuf_cPush(&uart1_rxbuf, rval, 0x03);
+        if (bytebuf_cGetFree(&uart1_rxbuf)){
+            bytebuf_cPush(&uart1_rxbuf, rval, 0x00);
         }
     }
     

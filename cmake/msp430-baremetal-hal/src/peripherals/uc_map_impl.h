@@ -80,12 +80,6 @@
     */
     /**@{*/ 
     #define uC_HAS_UART0           1
-    #ifndef uC_UART0_FWIF_DEFINED
-        #define uC_UART0_BAUD          19200
-        #define uC_UART0_TXBUF_LEN     200
-        #define uC_UART0_RXBUF_LEN     20
-        #define uC_UART0_FWIF_DEFINED
-    #endif
     /**@}*/ 
     
     /**
@@ -93,12 +87,6 @@
     */
     /**@{*/ 
     #define uC_HAS_UART1           1
-    #ifndef uC_UART1_FWIF_DEFINED
-        #define uC_UART1_BAUD          19200
-        #define uC_UART1_TXBUF_LEN     200
-        #define uC_UART1_RXBUF_LEN     20
-        #define uC_UART1_FWIF_DEFINED
-    #endif
     /**@}*/ 
     
     #if (uC_UART0_ENABLED + uC_UART1_ENABLED) > 0

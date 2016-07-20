@@ -22,9 +22,11 @@
 #ifndef UART_IMPL_H
 #define UART_IMPL_H
 
+#include "uc_pum.h"
 #include "uc_map_impl.h"
 #include "uc_types_impl.h"
 
+#include <string.h>
 #include <printf/printf.h>
 #include <bytebuf/bytebuf.h>
 
@@ -88,21 +90,32 @@ extern const UART_IF_t *const uart_if[];
     void uart1_init(void);
 #endif
 
-static inline uint8_t uart_putc_buf(uint8_t intfnum, uint8_t byte, uint8_t token, uint8_t handlelock){
+static inline uint8_t uart_putc(uint8_t intfnum, uint8_t byte, uint8_t token, uint8_t handlelock){
     uint8_t stat=1;
     if (handlelock){
         stat = bytebuf_cPushReqLock(uart_if[intfnum]->txbuf, 1, token);
     }
     if (stat){
-        stat = bytebuf_cPush(uart_if[intfnum]->txbuf, byte, token);
+        stat = bytebuf_cPushByte(uart_if[intfnum]->txbuf, byte, token);
         uart_send_trigger(intfnum);
         return stat;
     }
     return 0;
 }
 
-static inline uint8_t uart_getc_buf(uint8_t intfnum){
+static inline uint8_t uart_write(uint8_t intfnum, void* buffer, uint8_t len, uint8_t token){
+    uint8_t rval;
+    rval = bytebuf_cPushLen(uart_if[intfnum]->txbuf, buffer, len, token);
+    uart_send_trigger(intfnum);
+    return rval;
+}
+
+static inline uint8_t uart_getc(uint8_t intfnum){
     return bytebuf_cPopByte(uart_if[intfnum]->rxbuf);
+}
+
+static inline uint8_t uart_read(uint8_t intfnum, void* buffer, uint8_t len){
+    return bytebuf_cPopLen(uart_if[intfnum]->rxbuf, buffer, len);
 }
     
 static inline uint8_t uart_population_rxb(uint8_t intfnum){
@@ -135,13 +148,13 @@ static inline uint8_t uart_rellock(uint8_t intfnum, uint8_t token){
     return bytebuf_cPushRelinquishLock(uart_if[intfnum]->txbuf, token);
 }
 
-static inline void uart_putc(uint8_t intfnum, uint8_t byte){
+static inline void uart_putc_bare(uint8_t intfnum, uint8_t byte){
     if (uart_if[intfnum]->hwif->type == UART_HWIF_USCI_A){
         USCI_A_UART_transmitData(uart_if[intfnum]->hwif->base, byte);
     }
 }
 
-static inline uint8_t uart_getc(uint8_t intfnum){
+static inline uint8_t uart_getc_bare(uint8_t intfnum){
     if (uart_if[intfnum]->hwif->type == UART_HWIF_USCI_A){
         return USCI_A_UART_receiveData(uart_if[intfnum]->hwif->base);
     }
