@@ -16,3 +16,9 @@
 [submodule "cmake/components/ebs-lib-ucdm"]
 	path = cmake/components/ebs-lib-ucdm
 	url = https://github.com/chintal/ebs-lib-ucdm.git
+[submodule "cmake/components/ebs-lib-modbus"]
+	path = cmake/components/ebs-lib-modbus
+	url = https://github.com/chintal/ebs-lib-modbus.git
+[submodule "cmake/components/msp430-usbapi"]
+	path = cmake/components/msp430-usbapi
+	url = https://github.com/chintal/msp430-usbapi.git
