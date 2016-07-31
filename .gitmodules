@@ -25,3 +25,6 @@
 [submodule "cmake/components/ebs-lib-hamming"]
 	path = cmake/components/ebs-lib-hamming
 	url = git@github.com:chintal/ebs-lib-hamming.git
+[submodule "cmake/components/ebs-lib-time"]
+	path = cmake/components/ebs-lib-time
+	url = https://github.com/chintal/ebs-lib-time.git
