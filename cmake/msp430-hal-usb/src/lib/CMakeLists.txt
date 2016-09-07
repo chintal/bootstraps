@@ -1,6 +1,0 @@
-
-
-ADD_PLATFORM_LIBRARY(prbs STATIC "" prbs.c)
-ADD_PLATFORM_LIBRARY(printf STATIC "" printf.c)
-ADD_PLATFORM_LIBRARY(bytebuf STATIC "" bytebuf.c)
-ADD_PLATFORM_LIBRARY(ucdm STATIC "" ucdm.c)

@@ -28,3 +28,9 @@
 [submodule "cmake/components/ebs-lib-time"]
 	path = cmake/components/ebs-lib-time
 	url = https://github.com/chintal/ebs-lib-time.git
+[submodule "cmake/components/cryptolib"]
+	path = cmake/components/cryptolib
+	url = https://github.com/chintal/cryptolib.git
+[submodule "cmake/components/ebs-lib-ds"]
+	path = cmake/components/ebs-lib-ds
+	url = https://github.com/chintal/ebs-lib-ds.git

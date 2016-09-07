@@ -1,4 +1,0 @@
-
-Design Goals {#design}
-============
-
