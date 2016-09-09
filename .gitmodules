@@ -34,3 +34,6 @@
 [submodule "cmake/components/ebs-lib-ds"]
 	path = cmake/components/ebs-lib-ds
 	url = https://github.com/chintal/ebs-lib-ds.git
+[submodule "cmake/components/ebs-lib-uuid"]
+	path = cmake/components/ebs-lib-uuid
+	url = https://github.com/chintal/ebs-lib-uuid.git
